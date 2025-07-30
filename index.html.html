@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>404</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Синий экран смерти -->
+  <div id="bsod" class="bsod">
+    <pre>
+      A problem has been detected and KELTAIN has been shut down to prevent damage to your system.
+
+      CRITICAL_PROCESS_DIED
+      KERNEL_SECURITY_CHECK_FAILURE
+      SYSTEM_THREAD_EXCEPTION_NOT_HANDLED
+      MEMORY_MANAGEMENT
+      PAGE_FAULT_IN_NONPAGED_AREA
+      IRQL_NOT_LESS_OR_EQUAL
+      UNEXPECTED_KERNEL_MODE_TRAP
+      CLOCK_WATCHDOG_TIMEOUT
+      INTERRUPT_EXCEPTION_NOT_HANDLED
+      DPC_WATCHDOG_VIOLATION
+      ATTEMPTED_WRITE_TO_READONLY_MEMORY
+      TRANSACTION_NOT_ACTIVE
+      INVALID_DATA_ACCESS_TRAP
+      BAD_POOL_CALLER
+      CONFIG_INITIALIZATION_FAILED
+      INACCESSIBLE_BOOT_DEVICE
+      VIDEO_TDR_FAILURE
+      WHEA_UNCORRECTABLE_ERROR
+      CLOCK_WATCHDOG_TIMEOUT
+      DPC_WATCHDOG_VIOLATION
+      SYSTEM_SERVICE_EXCEPTION
+      INTERRUPT_EXCEPTION_NOT_HANDLED
+      VIDEO_SCHEDULER_INTERNAL_ERROR
+      DRIVER_POWER_STATE_FAILURE
+      CACHE_MANAGER
+      INSTRUCTION_MISALIGNMENT
+      INVALID_KERNEL_HANDLE
+      KERNEL_STACK_INPAGE_ERROR
+      PHASE1_INITIALIZATION_FAILED
+      FAT_FILE_SYSTEM
+      NTFS_FILE_SYSTEM
+      KMODE_EXCEPTION_NOT_HANDLED
+      HAL_INITIALIZATION_FAILED
+      UNEXPECTED_KERNEL_MODE_TRAP
+      DRIVER_IRQL_NOT_LESS_OR_EQUAL
+      DRIVER_POWER_STATE_FAILURE
+      SYSTEM_CLOCK_EXCEPTION
+      DATA_BUS_ERROR
+      INSTRUCTION_BUS_ERROR
+      NMI_HARDWARE_FAILURE
+      HARDWARE_INTERRUPT_STORM
+      DIRTY_UNIPROCESSOR_SHUTDOWN
+      VIDEO_DRIVER_DEBUG_REPORT_REQUEST
+    </pre>
+  </div>
+
+  <!-- Основной контент после 3 секунд -->
+  <div id="content" class="container hidden"></div>
+
+  <!-- Фоновые волны -->
+  <img src="images/wave-top.png" class="wave wave-top" alt="">
+  <img src="images/wave-bottom.png" class="wave wave-bottom" alt="">
+
+  <!-- Аудио -->
+  <audio id="ocean-sound" src="audio/ocean-transition.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
