@@ -89,14 +89,6 @@
     DATA_BUS_ERROR
     INSTRUCTION_BUS_ERROR
     HARDWARE_INTERRUPT_STORM
-    PRINCIPALITY
-    TRANSACTION_NOT_ACTIVE
-    HARDWARE_INTERRUPT_STORM
-    PRINCIPALITY
-    TRANSACTION_NOT_ACTIVE
-    DATA_BUS_ERROR
-    INSTRUCTION_BUS_ERROR
-    HARDWARE_INTERRUPT_STORM
   </div>
 
   <!-- Фоновое видео -->
@@ -107,13 +99,9 @@
   <!-- Основной контент -->
   <div id="content" class="container"></div>
 
-  <!-- Аудио -->
-  <audio id="ocean-sound" src="audio/ocean-transition.mp3" preload="auto"></audio>
-
   <script>
     const bsod = document.getElementById('bsod');
     const content = document.getElementById('content');
-    const audio = document.getElementById('ocean-sound');
     let canTrigger = false;
 
     // Через 3 секунды — убираем BSOD
@@ -123,9 +111,6 @@
 
       // Через 5 секунд разрешаем триггер
       setTimeout(() => { canTrigger = true; }, 2000);
-
-      // Включаем звук
-      audio.play().catch(() => console.log('Автовоспроизведение запрещено'));
 
       // Появление текста
       setTimeout(() => {
@@ -153,7 +138,6 @@
         content.classList.remove('fade-in');
         content.innerHTML = `Ты снова включился(лась).<br>А ведь можно было просто быть здесь.`;
         content.classList.add('fade-in');
-        audio.pause();
         setTimeout(() => { window.close(); }, 5000);
       }
     }
