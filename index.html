@@ -5,132 +5,162 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>404</title>
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      padding: 0;
-      background-color: #000;
+      background: #000;
       color: #fff;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
       text-align: center;
       font-size: 24px;
       line-height: 1.8;
     }
+    .bsod {
+      background: #000077;
+      color: #fff;
+      font-size: 14px;
+      padding: 20px;
+      white-space: pre-line;
+      text-align: left;
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 10;
+    }
     .container {
+      position: relative;
+      z-index: 5;
       opacity: 0;
-      transition: opacity 1s ease-in-out;
+      transition: opacity 1s;
+    }
+    .fade-in { opacity: 1; }
+    #background-video {
+      position: fixed;
+      top: 0; left: 0;
+      min-width: 100%; min-height: 100%;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.2;
+      z-index: -1;
     }
     @media (max-width: 600px) {
-      body {
-        font-size: 18px;
-        padding: 20px;
-      }
+      font-size: 18px;
+      padding: 20px;
     }
   </style>
 </head>
 <body>
-  <div id="content" class="container">
-    <!-- Старт через JavaScript -->
+
+  <!-- Синий экран -->
+  <div id="bsod" class="bsod">
+    A problem has been detected and KELTAIN has been shut down to prevent damage to your system.
+
+    CRITICAL_PROCESS_DIED
+    KERNEL_SECURITY_CHECK_FAILURE
+    MEMORY_MANAGEMENT
+    PAGE_FAULT_IN_NONPAGED_AREA
+    IRQL_NOT_LESS_OR_EQUAL
+    UNEXPECTED_KERNEL_MODE_TRAP
+    CLOCK_WATCHDOG_TIMEOUT
+    DPC_WATCHDOG_VIOLATION
+    INTERRUPT_EXCEPTION_NOT_HANDLED
+    VIDEO_TDR_FAILURE
+    SYSTEM_SERVICE_EXCEPTION
+    DRIVER_POWER_STATE_FAILURE
+    NMI_HARDWARE_FAILURE
+    HARDWARE_INTERRUPT_STORM
+    DIRTY_UNIPROCESSOR_SHUTDOWN
+    VIDEO_SCHEDULER_INTERNAL_ERROR
+    WHEA_UNCORRECTABLE_ERROR
+    CACHE_MANAGER
+    INSTRUCTION_MISALIGNMENT
+    INVALID_KERNEL_HANDLE
+    KERNEL_STACK_INPAGE_ERROR
+    PHASE1_INITIALIZATION_FAILED
+    FAT_FILE_SYSTEM
+    NTFS_FILE_SYSTEM
+    KMODE_EXCEPTION_NOT_HANDLED
+    HAL_INITIALIZATION_FAILED
+    DRIVER_IRQL_NOT_LESS_OR_EQUAL
+    SYSTEM_CLOCK_EXCEPTION
+    DATA_BUS_ERROR
+    INSTRUCTION_BUS_ERROR
+    HARDWARE_INTERRUPT_STORM
+    PRINCIPALITY
+    TRANSACTION_NOT_ACTIVE
+    HARDWARE_INTERRUPT_STORM
+    PRINCIPALITY
+    TRANSACTION_NOT_ACTIVE
+    DATA_BUS_ERROR
+    INSTRUCTION_BUS_ERROR
+    HARDWARE_INTERRUPT_STORM
   </div>
 
+  <!-- Фоновое видео -->
+  <video id="background-video" autoplay muted loop>
+    <source src="video/sea-background.mp4" type="video/mp4">
+  </video>
+
+  <!-- Основной контент -->
+  <div id="content" class="container"></div>
+
+  <!-- Аудио -->
+  <audio id="ocean-sound" src="audio/ocean-transition.mp3" preload="auto"></audio>
+
   <script>
+    const bsod = document.getElementById('bsod');
     const content = document.getElementById('content');
-
-    // Через 3 секунды после загрузки
-    setTimeout(() => {
-      content.innerHTML = `404<br>Состояние не найдено.`;
-      content.classList.add('fade-in');
-    }, 500);
-
-    setTimeout(() => {
-      content.classList.remove('fade-in');
-      setTimeout(() => {
-        content.innerHTML = `Ты слишком себя загрузила.<br>Отвлекись на несколько минут и отдохни.`;
-        content.classList.add('fade-in');
-      }, 500);
-    }, 5500);
-
-    setTimeout(() => {
-      content.classList.remove('fade-in');
-      setTimeout(() => {
-        content.innerHTML = `Закрой глаза.<br>Сделай три глубоких вдоха.`;
-        content.classList.add('fade-in');
-      }, 500);
-    }, 15500);
-
-    setTimeout(() => {
-      content.classList.remove('fade-in');
-      setTimeout(() => {
-        content.innerHTML = `Можешь оставить след.<br>Но он исчезнет навсегда.`;
-        content.classList.add('fade-in');
-      }, 500);
-    }, 35500);
-
-    setTimeout(() => {
-      content.classList.remove('fade-in');
-      setTimeout(() => {
-        content.innerHTML = `Ты не обязана быть включённой.<br>KELTAIN. Мы рядом.`;
-        content.classList.add('fade-in');
-      }, 500);
-    }, 45500);
-
-    setTimeout(() => {
-      content.classList.remove('fade-in');
-      setTimeout(() => {
-        let counter = 5;
-        content.innerHTML = `Через ${counter} секунд страница исчезнет.`;
-        content.classList.add('fade-in');
-
-        const countdown = setInterval(() => {
-          counter--;
-          if (counter > 0) {
-            content.innerHTML = `Через ${counter} секунд страница исчезнет.`;
-          } else {
-            content.innerHTML = ``;
-            clearInterval(countdown);
-            window.close(); // Не всегда работает, но символично
-          }
-        }, 1000);
-      }, 500);
-    }, 55500);
-
-    // Триггер при движении мыши
+    const audio = document.getElementById('ocean-sound');
     let canTrigger = false;
+
+    // Через 3 секунды — убираем BSOD
     setTimeout(() => {
-      canTrigger = true;
-    }, 5000);
+      bsod.style.opacity = 0;
+      setTimeout(() => { bsod.style.display = 'none'; }, 1000);
 
-    document.addEventListener('mousemove', function() {
-      if (canTrigger) {
-        document.body.innerHTML = `
-          <div style="text-align: center; line-height: 1.8; margin-top: 50px;">
-            Ты снова включился(лась).<br>
-            А ведь можно было просто быть здесь.
-          </div>
-        `;
-        setTimeout(() => {
-          window.close();
-        }, 5000);
-      }
-    });
+      // Через 5 секунд разрешаем триггер
+      setTimeout(() => { canTrigger = true; }, 2000);
 
-    document.addEventListener('touchstart', function() {
+      // Включаем звук
+      audio.play().catch(() => console.log('Автовоспроизведение запрещено'));
+
+      // Появление текста
+      setTimeout(() => {
+        content.innerHTML = 'Ты слишком себя загрузила.<br>Отвлекись на несколько минут и отдохни.';
+        content.classList.add('fade-in');
+      }, 500);
+
+      setTimeout(() => {
+        content.innerHTML = 'Закрой глаза.<br>Сделай три глубоких вдоха.';
+      }, 8000);
+
+      setTimeout(() => {
+        content.innerHTML = 'Можешь оставить след.<br>Но он исчезнет навсегда.';
+      }, 30000);
+
+      setTimeout(() => {
+        content.innerHTML = 'Ты не обязана быть включённой.<br>KELTAIN. Мы рядом.';
+      }, 60000);
+
+    }, 3000);
+
+    // Триггер: движение мыши или касание
+    function triggerBreak() {
       if (canTrigger) {
-        document.body.innerHTML = `
-          <div style="text-align: center; line-height: 1.8; margin-top: 50px;">
-            Ты снова включился(лась).<br>
-            А ведь можно было просто быть здесь.
-          </div>
-        `;
-        setTimeout(() => {
-          window.close();
-        }, 5000);
+        content.classList.remove('fade-in');
+        content.innerHTML = `Ты снова включился(лась).<br>А ведь можно было просто быть здесь.`;
+        content.classList.add('fade-in');
+        audio.pause();
+        setTimeout(() => { window.close(); }, 5000);
       }
-    });
+    }
+
+    document.addEventListener('mousemove', triggerBreak);
+    document.addEventListener('touchstart', triggerBreak);
   </script>
+
 </body>
 </html>
